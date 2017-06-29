@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for goospider project
+# Scrapy settings for scrapeman project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -16,15 +16,14 @@ NEWSPIDER_MODULE = 'goospider.spiders'
 
 DOWNLOAD_DELAY = 1.5
 RANDOMIZE_DOWNLOAD_DELAY = True
-RETRY_TIMES = 10
-RETRY_HTTP_CODES = [500, 502, 503, 504, 400, 408]
-USER_AGENT = "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.93 Safari/537.36"
-DEPTH_LIMIT = 1
+RETRY_HTTP_CODES = [500, 502, 503, 504, 400, 408, 302, 301]
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
+# USER_AGENT = 'scrapeman (+http://www.yourdomain.com)'
+
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
-
-SPLASH_URL = 'http://192.168.59.103:8050'
+SPLASH_URL = 'http://localhost:8050'
+DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 # CONCURRENT_REQUESTS = 32
@@ -51,15 +50,9 @@ SPLASH_URL = 'http://192.168.59.103:8050'
 
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
-# SPIDER_MIDDLEWARES = {
-#    'scrapeman.middlewares.ScrapemanSpiderMiddleware': 543,
-# }
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-# DOWNLOADER_MIDDLEWARES = {
-#    'scrapeman.middlewares.MyCustomDownloaderMiddleware': 543,
-# }
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -102,57 +95,61 @@ SPLASH_URL = 'http://192.168.59.103:8050'
 # default. All the other settings are documented here:
 #
 # http://doc.scrapy.org/en/latest/topics/settings.html
-
 DOWNLOADER_MIDDLEWARES = {
-    # 'scrapy.downloadermiddlewares.retry.RetryMiddleware': 90,
-    # 'goospider.middlewares.RandomProxy': 100,
-    # 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-    'goospider.middlewares.SetDefaultCookiejarMiddleware': 601,
-    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 2,
-    # 'kipp_base.middlewares.AddHeadersMiddleware': 401,
+    'goospider.middlewares.SetDefaultCookiejarMiddleware': 601,
+    'scrapy_splash.SplashCookiesMiddleware': 723,
+    'scrapy_splash.SplashMiddleware': 725,
+    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
+    'goospider.middlewares.AdjustSplashUrlMiddleware': 726,
+    'goospider.middlewares.RandomUserAgentMiddleware': 400,
 }
-# DOWNLOADER_CLIENTCONTEXTFACTORY = 'scrapeman.middlewares.CustomClientContextFactory'
+
+SPIDER_MIDDLEWARES = {
+    'goospider.middlewares.AddSplashMetaMiddleware': 910,
+}
+
 FEED_EXPORTERS = {
     'csv': 'goospider.scrapeman_csv_item_exporter.MyProjectCsvItemExporter',
 }
+
 FEED_URI='result-'+str(datetime.date.today())+'.csv'
 FEED_FORMAT='csv'
 
-FIELDS_TO_EXPORT = [
-    'url',
-    'price1',
-    'delivery1',
-    'sellername1',
-    'price2',
-    'delivery2',
-    'sellername2',
-    'price3',
-    'delivery3',
-    'sellername3',
-    'price4',
-    'delivery4',
-    'sellername4',
-    'price5',
-    'delivery5',
-    'sellername5',
-    'price6',
-    'delivery6',
-    'sellername6',
-    'price7',
-    'delivery7',
-    'sellername7',
-    'price8',
-    'delivery8',
-    'sellername8',
-    'price9',
-    'delivery9',
-    'sellername9',
-    'price10',
-    'delivery10',
-    'sellername10']
+# FIELDS_TO_EXPORT = [
+#     'url',
+#     'price1',
+#     'delivery1',
+#     'sellername1',
+#     'price2',
+#     'delivery2',
+#     'sellername2',
+#     'price3',
+#     'delivery3',
+#     'sellername3',
+#     'price4',
+#     'delivery4',
+#     'sellername4',
+#     'price5',
+#     'delivery5',
+#     'sellername5',
+#     'price6',
+#     'delivery6',
+#     'sellername6',
+#     'price7',
+#     'delivery7',
+#     'sellername7',
+#     'price8',
+#     'delivery8',
+#     'sellername8',
+#     'price9',
+#     'delivery9',
+#     'sellername9',
+#     'price10',
+#     'delivery10',
+#     'sellername10']
 
 # ITEM_PIPELINES = {
-#     'goospider.pipelines.GoospiderPipeline': 1
+#     'goospider.pipelines.ScrapemanPipeline': 1
 # }
