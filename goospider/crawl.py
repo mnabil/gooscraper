@@ -29,7 +29,7 @@ for url in urls:
         item['store'+str(idx+1)] = select.css('a > .rhsg4').xpath('text()').extract_first()
         item['price'+str(idx+1)] = select.css('._kh').xpath('text()').extract_first()
         item['extras'+str(idx+1)] = select.css('._ree .rhsg4').xpath('text()').extract_first()
-    with open('my_data.csv', 'wb') as ofile:
+    with open('my_data.csv', 'r+b') as ofile:
         header = next(csv.reader(ofile))
         dict_writer = csv.DictWriter(ofile, header, -999)
         dict_writer.writerow(item)
