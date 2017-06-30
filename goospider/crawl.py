@@ -1,9 +1,13 @@
 from selenium import webdriver
 import os
 
-
+from pyvirtualdisplay import Display
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-driver = webdriver.Chrome(ROOT_DIR+'chromedriver')
+
+display = Display(visible=0, size=(800, 600))
+display.start()
+
+driver = webdriver.Firefox()
 urls = ['https://www.google.com/search?q=23100107721',
         'https://www.google.com/search?q=41693392140',
         'https://www.google.com/search?q=49694260437',
@@ -19,7 +23,7 @@ for url in urls:
     driver.get(url)
     element = driver.find_element_by_xpath('//*[@id="resultStats"]/nobr')
     print element.text
-
+driver.close()
 
 
     # def process_item(self, item, spider):
