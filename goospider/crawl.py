@@ -14,8 +14,9 @@ urls = ['https://www.google.com/search?q=23100107721',
         'https://www.google.com/search?q=45557180034',
         'https://www.google.com/search?q=43917231709'
         ]
+data = {}
 for url in urls:
-    driver.get("https://www.google.com/search?q=swat+strike")
+    driver.get(url)
     element = driver.find_element_by_xpath('//*[@id="resultStats"]/nobr')
     print element.text
 
