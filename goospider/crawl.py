@@ -2,7 +2,6 @@ from selenium import webdriver
 import os
 from scrapy import Selector
 from pyvirtualdisplay import Display
-import csv
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -57,17 +56,5 @@ with open('data.csv', 'w') as f:
 
 f.close()
 
-# element = driver.find_element_by_xpath('//*[@id="resultStats"]/nobr')
-# print element.text
 driver.close()
-
-
-# def process_item(self, item, spider):
-#     self.file.writelines(["%s\n" % l for l in item['sellerurls']])
-#     data_fields = [i for i in item.iterkeys() if i != 'url' and i != 'condition' and i !='sellerurls']
-#     data = {}
-#     data['url'] = item['url']
-#     for field in data_fields:
-#         for idx, value in enumerate(item[field]):
-#             data[field + str(idx + 1)] = value
-#     return data
+driver.quit()
