@@ -52,9 +52,8 @@ with open('data.csv', 'w') as f:
 
         clean_item(item)
         print('Saving data into file: %s'%f.name)
-        f.write(u'\t'.join([item[key] for key in csv_headers if key in item.keys()]).encode('utf-8').strip() + '\n')
+        f.write(u'\t'.join([item[key] for key in csv_headers if key in item.keys()]).encode('utf-8') + '\n')
 
 f.close()
 
 driver.close()
-driver.quit()
