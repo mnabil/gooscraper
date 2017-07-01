@@ -13,8 +13,6 @@ def clean_item(item):
     for k, v in item.items():
         if v is None:
             item[k] = u''
-        elif ',' in v:
-            item[k] = u"\"{0}\"".format(item[k].encode('utf-8'))
 
 
 driver = webdriver.Firefox()
@@ -48,7 +46,7 @@ with open('data.csv', 'w') as f:
         for idx, select in enumerate(rows):
             item['Store' + str(idx + 1)] = select.css('a > .rhsg4').xpath('text()').extract_first()
             item['Price' + str(idx + 1)] = select.css('._kh').xpath('text()').extract_first().strip(u'$')
-            item['Extras' + str(idx + 1)] = select.css('._ree').xpath('normalize-space(string())').extract_first()
+            item['Extras' + str(idx + 1)] = "\"" + select.css('._ree').xpath('normalize-space(string())').extract_first() +"\""
             item['ID'] = u''
             item['Cost'] = u''
 
