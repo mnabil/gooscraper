@@ -33,7 +33,7 @@ csv_headers = ['ID','Cost','Url', 'Store1', 'Price1', 'Extras1', 'Store2', 'Pric
                'Price7', 'Extras7', 'Store8', 'Price8', 'Extras8', 'Store9', 'Price9', 'Extras9', 'Store10', 'Price10',
                'Extras10']
 with open('data.csv', 'w') as f:
-    f.writelines('\t'.join(csv_headers) + '\n')
+    f.write('\t'.join(csv_headers) + '\n')
 
     for url in urls:
         driver.get(url)
@@ -47,13 +47,13 @@ with open('data.csv', 'w') as f:
         for idx, select in enumerate(rows):
             item['Store' + str(idx + 1)] = select.css('a > .rhsg4').xpath('text()').extract_first()
             item['Price' + str(idx + 1)] = select.css('._kh').xpath('text()').extract_first().strip(u'$')
-            item['Extras' + str(idx + 1)] = select.css('._ree .rhsg4').xpath('text()').extract_first()
+            item['Extras' + str(idx + 1)] = select.css('._ree').xpath('normalize-space(string())').extract_first()
             item['ID'] = u''
             item['Cost'] = u''
 
         clean_item(item)
         print('Saving data into file: %s'%f.name)
-        f.writelines(u'\t'.join([item[key] for key in csv_headers if key in item.keys()]) + '\n')
+        f.write(u'\t'.join([item[key] for key in csv_headers if key in item.keys()]).encode('utf-8').strip() + '\n')
 
 f.close()
 
