@@ -13,6 +13,8 @@ def clean_item(item):
     for k, v in item.items():
         if v is None:
             item[k] = u''
+        elif ',' in v:
+            item[k] = "\"%s\"".format(item[k])
 
 
 driver = webdriver.Firefox()
