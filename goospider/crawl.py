@@ -14,7 +14,7 @@ def clean_item(item):
         if v is None:
             item[k] = u''
         elif ',' in v:
-            item[k] = "\"{0}\"".format(item[k])
+            item[k] = u"\"{0}\"".format(item[k].encode('utf-8'))
 
 
 driver = webdriver.Firefox()
