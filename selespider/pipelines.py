@@ -8,12 +8,12 @@
 # import datetime
 def clean_item(item):
     for k, v in item.items():
-        if v is None:
+        if v is None or v == u'""':
             item[k] = u''
 
 class ScrapemanPipeline(object):
     def close_spider(self, spider):
-        self.driver.close()
+        spider.driver.close()
 
     def process_item(self, item, spider):
         clean_item(item)
