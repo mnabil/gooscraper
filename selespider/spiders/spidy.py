@@ -40,12 +40,12 @@ class QuotesSpider(scrapy.Spider):
 
     def parse_contents(self, response):
         self.driver.get(response.url)
-        print('Scraping URL: %s' % self.url)
+        print('Scraping URL: %s' % response.url)
         source = self.driver.page_source
-        sel = Selector(text=source)
-        rows = sel.css('._Dw')
         item = ScrapemanItem()
         item['Url'] = unicode(response.url)
+        sel = Selector(text=source)
+        rows = sel.css('._Dw')
         for idx, select in enumerate(rows):
             item['Store' + str(idx + 1)] = select.css('a > .rhsg4').xpath('text()').extract_first()
             item['Price' + str(idx + 1)] = select.css('._kh').xpath('text()').extract_first().strip(u'$')
