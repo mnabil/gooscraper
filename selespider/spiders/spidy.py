@@ -1,5 +1,5 @@
 import scrapy
-from items import ScrapemanItem
+from selespider.items import ScrapemanItem
 from selenium import webdriver
 import os
 from pyvirtualdisplay import Display
