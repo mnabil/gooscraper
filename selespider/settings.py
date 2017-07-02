@@ -9,10 +9,10 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 import datetime
-BOT_NAME = 'scrapeman'
+BOT_NAME = 'selespider'
 
-SPIDER_MODULES = ['scrapeman.spiders']
-NEWSPIDER_MODULE = 'scrapeman.spiders'
+SPIDER_MODULES = ['selespider.spiders']
+NEWSPIDER_MODULE = 'selespider.spiders'
 
 DOWNLOAD_DELAY = 1.5
 RANDOMIZE_DOWNLOAD_DELAY = True
@@ -90,12 +90,12 @@ RETRY_HTTP_CODES = [500, 502, 503, 504, 400, 408, 302, 301]
 # http://doc.scrapy.org/en/latest/topics/settings.html
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-    'scrapeman.middlewares.SetDefaultCookiejarMiddleware': 601,
+    'selespider.middlewares.SetDefaultCookiejarMiddleware': 601,
     'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
 }
 
 FEED_EXPORTERS = {
-    'csv': 'scrapeman.scrapeman_csv_item_exporter.MyProjectCsvItemExporter',
+    'csv': 'selespider.scrapeman_csv_item_exporter.MyProjectCsvItemExporter',
 }
 FEED_URI='result-'+str(datetime.date.today())+'.csv'
 FEED_FORMAT='csv'
@@ -106,5 +106,5 @@ FIELDS_TO_EXPORT = ['id','Cost','Url', 'Store1', 'Price1', 'Extras1', 'Store2', 
                'Extras10']
 
 ITEM_PIPELINES = {
-    'scrapeman.pipelines.ScrapemanPipeline': 1
+    'selespider.pipelines.ScrapemanPipeline': 1
 }
