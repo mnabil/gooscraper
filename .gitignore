@@ -65,6 +65,5 @@ target/
 
 .vagrant/*
 venv/*
-scrapy.cfg
 setup.py
 twistd.pid
