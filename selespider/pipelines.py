@@ -13,7 +13,7 @@ def clean_item(item):
 
 class ScrapemanPipeline(object):
     def open_spider(self, spider):
-        self.file = open('sellerlinks-'+str(datetime.date.today())+'.csv','w')
+        self.file = open('stores_urls_'+str(datetime.date.today())+'.csv','w')
 
     def close_spider(self, spider):
         spider.driver.close()
