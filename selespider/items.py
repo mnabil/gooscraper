@@ -42,3 +42,4 @@ class ScrapemanItem(scrapy.Item):
     Store10 = scrapy.Field()
     Price10 = scrapy.Field()
     Extras10 = scrapy.Field()
+    stores_urls = scrapy.Field()
