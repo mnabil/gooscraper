@@ -52,5 +52,5 @@ class QuotesSpider(scrapy.Spider):
             item['Extras' + str(idx + 1)] = "\"" + select.css('._ree').xpath('normalize-space(string())').extract_first() +"\"".encode('utf-8')
             item['id'] = u''
             item['Cost'] = u''
-            item['stores_urls'] = sel.css('._Dw > .jackpot-merchant > a').xpath('@href').extract()
+            item['stores_urls'] = sel.css("a[id^='vjpm']").xpath('@href').extract()
         yield item
